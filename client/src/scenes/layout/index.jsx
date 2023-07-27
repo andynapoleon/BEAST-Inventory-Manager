@@ -20,11 +20,11 @@ const Layout = () => {
       <Sidebar
         user={data || {}}
         isNonMobile={isNonMobile}
-        drawerWidth="250px"
+        drawerWidth="250px" // this only takes up the width of 250px
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
       />
-      <Box flexGrow={1}>
+      <Box flexGrow={1} /* this box will take as much as it can on a screen */>
         <Navbar
           user={data || {}}
           isSidebarOpen={isSidebarOpen}
