@@ -34,6 +34,7 @@ export const api = createApi({
     }),
     getTransactions: build.query({
       query: ({ page, pageSize, sort, search }) => ({
+        // we need params to send back to the back-end (same as req.body)
         url: "client/transactions",
         method: "GET",
         params: { page, pageSize, sort, search },
