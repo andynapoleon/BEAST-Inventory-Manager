@@ -133,8 +133,8 @@ const Sidebar = ({
             <Box m="1.5rem 2rem 2rem 3rem">
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
-                  <Typography variant="h4" fontWeight="bold">
-                    BEAST
+                  <Typography variant="h4" fontWeight="bold" size="large">
+                    BEAST SUPPS
                   </Typography>
                 </Box>
                 {!isNonMobile && (
