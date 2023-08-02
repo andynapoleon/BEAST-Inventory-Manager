@@ -23,7 +23,6 @@ const Product = ({
   rating,
   category,
   supply,
-  stat,
 }) => {
   const theme = useTheme();
   const [isExpanded, setIsExpanded] = useState(false); // control the state of expanding (see more button)
@@ -74,12 +73,6 @@ const Product = ({
         <CardContent>
           <Typography>id: {_id}</Typography>
           <Typography>Supply Left: {supply}</Typography>
-          <Typography>
-            Yearly Sales This Year: {stat.yearlySalesTotal}
-          </Typography>
-          <Typography>
-            Yearly Units Sold This Year: {stat.yearlyTotalSoldUnits}
-          </Typography>
         </CardContent>
       </Collapse>
     </Card>
@@ -106,16 +99,7 @@ const Products = () => {
           }}
         >
           {data.map(
-            ({
-              _id,
-              name,
-              description,
-              price,
-              rating,
-              category,
-              supply,
-              stat,
-            }) => (
+            ({ _id, name, description, price, rating, category, supply }) => (
               <Product
                 key={_id}
                 _id={_id}
@@ -125,7 +109,6 @@ const Products = () => {
                 rating={rating}
                 category={category}
                 supply={supply}
-                stat={stat}
               />
             )
           )}
