@@ -10,10 +10,12 @@ const Layout = () => {
   const isNonMobile = useMediaQuery("(min-width: 600px)"); // true on desktop screen (minimum 600px)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // control the state if the side bar is open or not
   const userId = useSelector((state) => state.global.userId);
+  //const token = useSelector((state) => state.global.token);
+  // console.log("ID", userId);
+  // console.log("TOKEN:", token);
   const { data } = useGetUserQuery(userId);
-  console.log(userId);
-  console.log("data", data);
-  console.log(process.env.REACT_APP_BASE_URL);
+  // console.log("data", data);
+  // console.log(process.env.REACT_APP_BASE_URL);
 
   return (
     <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%">

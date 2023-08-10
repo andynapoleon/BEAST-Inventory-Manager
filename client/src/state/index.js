@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   // global state
   mode: "dark",
-  userId: "63701cc1f03239b7f700000e",
+  userId: null,
+  token: null,
 };
 
 export const globalSlice = createSlice({
@@ -14,9 +15,17 @@ export const globalSlice = createSlice({
       // controlling the mode (global state)
       state.mode = state.mode === "light" ? "dark" : "light";
     },
+    setLogin: (state, action) => {
+      state.userId = action.payload.userId;
+      state.token = action.payload.token;
+    },
+    setLogout: (state) => {
+      state.userId = null;
+      state.token = null;
+    },
   },
 });
 
-export const { setMode } = globalSlice.actions; // we're grabbing the function and export it
+export const { setMode, setLogin, setLogout } = globalSlice.actions; // we're grabbing the function and export it
 
 export default globalSlice.reducer;

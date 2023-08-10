@@ -3,11 +3,13 @@ import { Box, useTheme } from "@mui/material";
 import { useGetCustomersQuery } from "state/api";
 import Header from "components/Header";
 import { DataGrid } from "@mui/x-data-grid";
+import { useSelector } from "react-redux";
 
 const Customers = () => {
   const theme = useTheme();
-  const { data, isLoading } = useGetCustomersQuery(); // same as before
-  console.log("data", data);
+  const token = useSelector((state) => state.global.token);
+  const { data, isLoading } = useGetCustomersQuery(token); // same as before
+  //console.log("data", data);
 
   const columns = [
     {

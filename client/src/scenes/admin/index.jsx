@@ -4,10 +4,12 @@ import { useGetAdminsQuery } from "state/api";
 import { DataGrid } from "@mui/x-data-grid";
 import Header from "components/Header";
 import CustomColumnMenu from "components/DataGridCustomColumnMenu";
+import { useSelector } from "react-redux";
 
 const Admin = () => {
   const theme = useTheme();
-  const { data, isLoading } = useGetAdminsQuery();
+  const token = useSelector((state) => state.global.token);
+  const { data, isLoading } = useGetAdminsQuery(token);
 
   const columns = [
     {

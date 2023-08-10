@@ -4,10 +4,12 @@ import { useGetGeographyQuery } from "state/api";
 import Header from "components/Header";
 import { ResponsiveChoropleth } from "@nivo/geo"; // chart
 import { geoData } from "state/geoData";
+import { useSelector } from "react-redux";
 
 const Geography = () => {
   const theme = useTheme();
-  const { data } = useGetGeographyQuery();
+  const token = useSelector((state) => state.global.token);
+  const { data } = useGetGeographyQuery(token);
 
   return (
     <Box m="1.5rem 2.5rem">

@@ -13,7 +13,6 @@ import {
   useTheme,
 } from "@mui/material";
 import {
-  SettingsOutlined, // "outline" components are literally just icons
   ChevronLeft,
   ChevronRightOutlined,
   HomeOutlined,
@@ -31,7 +30,7 @@ import {
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
-import profileImage from "assets/profile.jpeg";
+import profileImage from "assets/user.png";
 
 // an array of navigation items where we will show on the sidebar
 const navItems = [
@@ -134,7 +133,7 @@ const Sidebar = ({
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
                   <Typography variant="h4" fontWeight="bold" size="large">
-                    BEAST SUPPS
+                    📦 BEAST INVENTORY
                   </Typography>
                 </Box>
                 {!isNonMobile && (
@@ -224,12 +223,6 @@ const Sidebar = ({
                         {user.occupation}
                       </Typography>
                     </Box>
-                    <SettingsOutlined
-                      sx={{
-                        color: theme.palette.secondary[300],
-                        fontSize: "25px ",
-                      }}
-                    />
                   </FlexBetween>
                 </Box>
               </ListItem>

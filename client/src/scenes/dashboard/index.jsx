@@ -20,11 +20,13 @@ import BreakdownChart from "components/BreakdownChart";
 import OverviewChart from "components/OverviewChart";
 import { useGetDashboardQuery } from "state/api";
 import StatBox from "components/StatBox";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)"); // responsiveness
-  const { data, isLoading } = useGetDashboardQuery();
+  const token = useSelector((state) => state.global.token);
+  const { data, isLoading } = useGetDashboardQuery(token);
 
   const columns = [
     {

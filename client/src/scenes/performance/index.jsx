@@ -8,6 +8,7 @@ import CustomColumnMenu from "components/DataGridCustomColumnMenu";
 
 const Performance = () => {
   const theme = useTheme();
+  //const token = useSelector((state) => state.global.token);
   const userId = useSelector((state) => state.global.userId);
   const { data, isLoading } = useGetUserPerformanceQuery(userId);
 

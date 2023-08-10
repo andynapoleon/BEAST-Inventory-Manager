@@ -4,9 +4,11 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useGetTransactionsQuery } from "state/api";
 import Header from "components/Header";
 import DataGridCustomToolbar from "components/DataGridCustomToolbar";
+import { useSelector } from "react-redux";
 
 const Transactions = () => {
   const theme = useTheme();
+  const token = useSelector((state) => state.global.token);
 
   // values to be sent to the backend
   const [page, setPage] = useState(0);
@@ -21,6 +23,7 @@ const Transactions = () => {
     pageSize,
     sort: JSON.stringify(sort), // make it a JSON object a string "{...}"
     search,
+    token,
   });
 
   const columns = [

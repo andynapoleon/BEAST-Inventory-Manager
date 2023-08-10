@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import {
+  HelpOutlined,
   LightModeOutlined,
   DarkModeOutlined,
   Menu as MenuIcon,
-  SettingsOutlined,
   ArrowDropDownOutlined,
 } from "@mui/icons-material";
 import FlexBetween from "components/FlexBetween";
 import { useDispatch } from "react-redux";
-import { setMode } from "state";
-import profileImage from "assets/profile.jpeg";
+import { setMode, setLogout } from "state";
+import profileImage from "assets/user.png";
 import {
   AppBar,
   Button,
@@ -56,9 +56,15 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <IconButton>
-            <SettingsOutlined sx={{ fontSize: "25px" }} />
-          </IconButton>
+          <a
+            href="https://github.com/andynapoleon/BEAST-Inventory-Manager#readme"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <IconButton>
+              <HelpOutlined sx={{ fontSize: "25px" }} />
+            </IconButton>
+          </a>
 
           <FlexBetween>
             <Button
@@ -105,7 +111,13 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  dispatch(setLogout());
+                }}
+              >
+                Log Out
+              </MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>

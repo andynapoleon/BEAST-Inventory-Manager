@@ -3,9 +3,11 @@ import { Box, useTheme } from "@mui/material";
 import Header from "components/Header";
 import { ResponsiveLine } from "@nivo/line";
 import { useGetSalesQuery } from "state/api";
+import { useSelector } from "react-redux";
 
 const Monthly = () => {
-  const { data } = useGetSalesQuery();
+  const token = useSelector((state) => state.global.token);
+  const { data } = useGetSalesQuery(token);
   const theme = useTheme();
 
   const [formattedData] = useMemo(() => {

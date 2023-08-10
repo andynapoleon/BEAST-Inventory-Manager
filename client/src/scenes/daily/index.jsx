@@ -5,11 +5,13 @@ import { ResponsiveLine } from "@nivo/line";
 import { useGetSalesQuery } from "state/api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useSelector } from "react-redux";
 
 const Daily = () => {
   const [startDate, setStartDate] = useState(new Date("2021-02-01"));
   const [endDate, setEndDate] = useState(new Date("2021-03-01"));
-  const { data } = useGetSalesQuery();
+  const token = useSelector((state) => state.global.token);
+  const { data } = useGetSalesQuery(token);
   const theme = useTheme();
 
   const [formattedData] = useMemo(() => {

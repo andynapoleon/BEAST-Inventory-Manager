@@ -21,36 +21,74 @@ export const api = createApi({
   ],
   endpoints: (build) => ({
     getUser: build.query({
-      query: (id) => `general/user/${id}`, // this is called endpoints
+      query: (id) => `general/user/${id}`, // this is called endpoints,
       providesTags: ["User"],
     }),
     getProducts: build.query({
-      query: () => "client/products",
+      query: (token) => ({
+        // we need params to send back to the back-end (same as req.body)
+        url: "client/products",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
       providesTags: ["Products"],
     }),
     getCustomers: build.query({
-      query: () => "client/customers",
+      query: (token) => ({
+        // we need params to send back to the back-end (same as req.body)
+        url: "client/customers",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
       providesTags: ["Customers"],
     }),
     getTransactions: build.query({
-      query: ({ page, pageSize, sort, search }) => ({
+      query: ({ page, pageSize, sort, search, token }) => ({
         // we need params to send back to the back-end (same as req.body)
         url: "client/transactions",
         method: "GET",
         params: { page, pageSize, sort, search },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }),
       providesTags: ["Transactions"],
     }),
     getGeography: build.query({
-      query: () => "client/geography",
+      query: (token) => ({
+        // we need params to send back to the back-end (same as req.body)
+        url: "client/geography",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
       providesTags: ["Geography"],
     }),
     getSales: build.query({
-      query: () => "sales/sales",
+      query: (token) => ({
+        // we need params to send back to the back-end (same as req.body)
+        url: "sales/sales",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
       providesTags: ["Sales"],
     }),
     getAdmins: build.query({
-      query: () => "management/admins",
+      query: (token) => ({
+        // we need params to send back to the back-end (same as req.body)
+        url: "management/admins",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
       providesTags: ["Admins"],
     }),
     getUserPerformance: build.query({
@@ -58,7 +96,14 @@ export const api = createApi({
       providesTags: ["Performance"],
     }),
     getDashboard: build.query({
-      query: () => "general/dashboard",
+      query: (token) => ({
+        // we need params to send back to the back-end (same as req.body)
+        url: "general/dashboard",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
       providesTags: ["Dashboard"],
     }),
   }),
