@@ -6,22 +6,28 @@ import getCountryIso3 from "country-iso-2-to-3";
 
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find(); // get all products
-
-    // get the product stats of each PRODUCT
-    const productsWithStats = await Promise.all(
-      products.map(async (product) => {
-        const stat = await ProductStat.find({
-          productId: product._id,
-        });
-        return {
-          // combine product + productState into one object to return
-          ...product._doc, // all the product information (._doc because of the Promise)
-          stat, // stat info
-        };
-      })
-    );
-
+    const productsWithStats = await Product.aggregate([
+      {
+        $addFields: {
+          _id: {
+            $toString: "$_id",
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "productstats",
+          localField: "_id",
+          foreignField: "productId",
+          as: "stat",
+        },
+      },
+      {
+        $unwind: {
+          path: "$stat",
+        },
+      },
+    ]);
     res.status(200).json(productsWithStats);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -40,23 +46,46 @@ export const getCustomers = async (req, res) => {
 export const getTransactions = async (req, res) => {
   try {
     // sort should look like this: { "field": "userId", "sort": "desc"} from the front-end
-    const { page = 1, pageSize = 20, sort = null, search = "" } = req.query; // grab values from a query string sent from the front-end
+    const { search = "" } = req.query; // grab values from a query string sent from the front-end
+    const { paginationModel, sortModel } = req.body;
+
+    //console.log("MODEL", paginationModel);
+    //console.log("SORT", sortModel);
+    var values = [];
+    if (sortModel !== undefined) {
+      values = Object.values(sortModel);
+    }
+    // const values = Object.values(sortModel);
 
     // formatted sort should look like { userId: -1 } // we want to format it so that mongodb can read it
     const generateSort = () => {
-      const sortParsed = JSON.parse(sort); // parse the string sent from the front-end to an object
-      const sortFormatted = {
-        [sortParsed.field]: (sortParsed.sort = "asc" ? 1 : -1),
-      };
+      var sortFormatted = {};
+      var value = 0;
+      if (sortModel !== undefined) {
+        if (values[1] === "asc") {
+          value = 1;
+        } else {
+          value = -1;
+        }
+        sortFormatted = {
+          [values[0]]: value,
+          //[sortModel.field]: (sortModel.sort = "asc" ? 1 : -1),
+        };
+      }
 
       return sortFormatted;
     };
-    const sortFormatted = Boolean(sort) ? generateSort() : {}; // check if sort exists or not - if yes, format it
+    const sortFormatted = Boolean(sortModel) ? generateSort() : {}; // check if sort exists or not - if yes, format it
+    //console.log("SORT FORMAT:", sortFormatted);
 
     // transaction search into the MongoDB
     // we are checking the cost field using the search field that the user provides
     // so we're searching the cost field of all transactions in the database
     // the "$or" allows us to search multiple fields, in this case, cost and userID
+
+    // console.log("PAGE:", paginationModel.page);
+    // console.log("PAGESIZE:", paginationModel.pageSize);
+
     const transactions = await Transaction.find({
       $or: [
         { cost: { $regex: new RegExp(search, "i") } },
@@ -64,13 +93,18 @@ export const getTransactions = async (req, res) => {
       ],
     })
       .sort(sortFormatted) // so ascending or descending???
-      .skip(page * pageSize) // skip to the proper page (page=2, pageSize=20 => we skip to document 40)
-      .limit(pageSize); // how many results to show
+      .skip(paginationModel.page * paginationModel.pageSize) // skip to the proper page (page=2, pageSize=20 => we skip to document 40)
+      .limit(paginationModel.pageSize); // how many results to show
 
-    const total = await Transaction.countDocuments({
+    // console.log(transactions);
+    // console.log(transactions.length);
+
+    const total = await Transaction.estimatedDocumentCount({
       // total # of transactions in the database
       name: { $regex: search, $options: "i" },
     });
+
+    // console.log(total);
 
     res.status(200).json({
       transactions, // requested transactions
@@ -120,7 +154,22 @@ export const addProducts = async (req, res) => {
       supply,
     });
     const savedProduct = await newProduct.save();
-    res.status(201).json(savedProduct); // 201: something has been created - return the response to front-end (savedProduct - json format) for further use
+
+    const productId = savedProduct._id;
+
+    const newProductStat = new ProductStat({
+      productId,
+      yearlySalesTotal: 0,
+      yearlyTotalSoldUnits: 0,
+      year: new Date().getFullYear(),
+      monthlyData: [],
+      dailyData: [],
+    });
+    const savedProductStat = await newProductStat.save();
+
+    res
+      .status(201)
+      .json({ product: savedProduct, productStat: savedProductStat }); // 201: something has been created - return the response to front-end (savedProduct - json format) for further use
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

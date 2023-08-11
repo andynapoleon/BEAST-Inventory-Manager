@@ -11,17 +11,30 @@ const Transactions = () => {
   const token = useSelector((state) => state.global.token);
 
   // values to be sent to the backend
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(20);
+  // const [page, setPage] = useState(0);
+  // const [pageSize, setPageSize] = useState(20);
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 20,
+  });
   const [sort, setSort] = useState({});
   const [search, setSearch] = useState("");
-
   const [searchInput, setSearchInput] = useState("");
+
+  const handleSortModelChange = React.useCallback((sortModel) => {
+    // Here you save the data you need from the sort model
+    //onst finalModel = sortModel[0].field;
+    //console.log(finalModel);
+    setSort(...sortModel);
+  }, []);
+
+  //console.log(sort.model.field);
+
   const { data, isLoading } = useGetTransactionsQuery({
     // params that we send to the back-end
-    page,
-    pageSize,
-    sort: JSON.stringify(sort), // make it a JSON object a string "{...}"
+    paginationModel,
+    // sort: JSON.stringify(sort), // make it a JSON object a string "{...}"
+    sort,
     search,
     token,
   });
@@ -95,15 +108,13 @@ const Transactions = () => {
           columns={columns}
           // all of the props below are for server-side pagination
           rowCount={(data && data.total) || 0}
-          rowsPerPageOptions={[20, 50, 100]}
+          pageSizeOptions={[20, 50, 100]}
           pagination
-          page={page}
-          pageSize={pageSize}
+          paginationModel={paginationModel}
           paginationMode="server"
           sortingMode="server"
-          onPageChange={(newPage) => setPage(newPage)} // changes in page - api request to server to update
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)} // same as above and same for below
-          onSortModelChange={(newSortModel) => setSort(...newSortModel)}
+          onPaginationModelChange={setPaginationModel}
+          onSortModelChange={handleSortModelChange}
           components={{ Toolbar: DataGridCustomToolbar }}
           componentsProps={{
             toolbar: { searchInput, setSearchInput, setSearch },

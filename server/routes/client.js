@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get("/products", verifyToken, getProducts);
 router.get("/customers", verifyToken, getCustomers);
-router.get("/transactions", verifyToken, getTransactions);
+router.post("/transactions", verifyToken, getTransactions);
 router.get("/geography", verifyToken, getGeography);
 
 router.post("/addProducts", verifyToken, addProducts);

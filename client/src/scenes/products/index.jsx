@@ -110,6 +110,7 @@ const Products = () => {
           </Button>
         </Box>
       </FlexBetween>
+
       {data || !isLoading ? ( // make sure that isLoading is false (done loading) and data has already existed
         <Box
           mt="20px"

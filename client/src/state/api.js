@@ -47,14 +47,19 @@ export const api = createApi({
       providesTags: ["Customers"],
     }),
     getTransactions: build.query({
-      query: ({ page, pageSize, sort, search, token }) => ({
+      query: ({ paginationModel, sort, search, token }) => ({
         // we need params to send back to the back-end (same as req.body)
         url: "client/transactions",
-        method: "GET",
-        params: { page, pageSize, sort, search },
+        method: "POST",
+        params: { search },
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          paginationModel: paginationModel,
+          sortModel: sort,
+        }),
       }),
       providesTags: ["Transactions"],
     }),

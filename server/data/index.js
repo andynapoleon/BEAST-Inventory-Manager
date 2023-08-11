@@ -19623,13 +19623,13 @@ export const dataUser = [
   },
   {
     _id: "63701cc1f032395694000009",
-    name: "Winny",
+    name: "Nick",
     email: "wbicknell3f@taobao.com",
     password: "EJRM6LjGs",
     city: "Singgugu",
     state: null,
     country: "ID",
-    occupation: "Electrical Engineer",
+    occupation: "CEO, Nutritionist",
     phoneNumber: "2301162603",
     transactions: [
       "63701d74f032396b8e000035",

@@ -28,9 +28,18 @@ const Login = () => {
           Welcome back, Admin! Let's have a look at our inventory!
         </Typography>
         <Typography sx={{ mb: "1.5rem" }}>
-          Email: cwaben@discovery.com
+          Sample account (with affiliate sales):
           <br />
-          Password: 2FLtGooM
+          Email: wbicknell3f@taobao.com
+          <br />
+          Password: EJRM6LjGs
+          <br />
+          <br />
+          Sample account (without affiliate sales):
+          <br />
+          Email: ahouseman1u@usa.gov
+          <br />
+          Password: Tdj392C7Cz
         </Typography>
         <Form />
       </Box>

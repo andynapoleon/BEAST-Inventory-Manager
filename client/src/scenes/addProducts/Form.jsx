@@ -57,7 +57,7 @@ const Form = () => {
     onSubmitProps.resetForm(); // onSubmitProps has some functions from Formik that we can use - resetForm() is one of them!
 
     if (savedProduct) {
-      navigate("/dashboard");
+      navigate("/products");
     }
   };
 

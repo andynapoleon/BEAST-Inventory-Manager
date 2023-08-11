@@ -22,7 +22,7 @@ import AddProducts from "scenes/addProducts";
 function App() {
   const mode = useSelector((state) => state.global.mode);
   const isAuth = Boolean(useSelector((state) => state.global.token)); // set to True if the token exists
-  console.log(isAuth);
+  //console.log(isAuth);
   // https://www.w3schools.com/react/react_usememo.asp
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]); // this hook will run only when "mode" has changed
 
