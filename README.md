@@ -33,4 +33,4 @@ A MERN inventory management application for managing an inventory of products or
  
   **Management Section**:
   - Admins Page displaying a table of all admins.
-  - Performance Page to track the performance of the currently logged-in admin's affiliate sales.
+  - Performance Page to track the performance of the currently logged-in admin's affiliate sales (data fetched using MongoDB Aggregation Pipeline).
