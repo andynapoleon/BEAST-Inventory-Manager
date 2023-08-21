@@ -6,14 +6,14 @@ A MERN inventory management application for managing an inventory of products or
 
 # Instructions
 
-1. **Login 🔑**: Start by logging in with one of the two sample accounts.
+1. **Login 🔑:** Start by logging in with one of the two sample accounts.
    <br>
    <br>
    IMPORTANT: The server might need some time to load up. Therefore, it might take around 30 seconds to direct you to the app after clicking the Login button.
 
 ![Screen Shot 2023-08-21 at 3 32 32 PM](https://github.com/andynapoleon/BEAST-Inventory-Manager/assets/85133277/693dc8c9-26ff-4100-866d-c664c99bb9dd)
 
-2. **All Special Features Available**:
+2. **All Features Available 💡:**
 
 - Dark Mode.
 - Login and Logout.
